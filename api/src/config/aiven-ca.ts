@@ -8,7 +8,7 @@ export function ensureAivenCA() {
     return CA_PATH;
   }
 
-  const ca = process.env.CERT;
+  const ca = process.env.AIVEN_CA_CERT;
 
   if (!ca) {
     throw new Error("AIVEN_CA_PEM env var not set");
