@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction } from "express";
-import { verifyPassword } from "../config/verifyPassword";
+import { verifyPassword } from "../config/verifyPassword.js";
 
 export function apiKeyGuard(
     req: Request,

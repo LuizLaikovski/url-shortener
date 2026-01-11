@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
-import { ensureAivenCA } from "../config/aiven-ca";
+import { ensureAivenCA } from "../config/aiven-ca.js";
 
 const sslCertPath = ensureAivenCA();
 
