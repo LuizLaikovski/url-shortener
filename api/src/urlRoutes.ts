@@ -1,9 +1,10 @@
 import { Router } from "express"
-import { createUrlShort, testEndpoint } from "./controller/urlShortener.js";
+import { getUrls, createUrlShort, redirectToUrl } from "./controller/urlShortener.js";
 
 const urlRoutes = Router()
 
-urlRoutes.get("/", testEndpoint)
-urlRoutes.post("/shorten", createUrlShort);
+urlRoutes.get("/", getUrls)
+urlRoutes.post("/shorten", createUrlShort)
+urlRoutes.get("/:short", redirectToUrl)
 
 export default urlRoutes;
