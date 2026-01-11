@@ -1,18 +1,20 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
+
+const CA_PATH = "/tmp/aiven-ca.pem";
 
 export function ensureAivenCA() {
-  const ca = process.env.AIVEN_CA_CERT;
+  if (fs.existsSync(CA_PATH)) {
+    return CA_PATH;
+  }
+
+  const ca = process.env.AIVEN_CA_PEM;
 
   if (!ca) {
-    throw new Error("AIVEN_CA_CERT não definida");
+    throw new Error("AIVEN_CA_PEM env var not set");
   }
 
-  const certPath = path.join(process.cwd(), "aiven-ca.pem");
+  fs.writeFileSync(CA_PATH, ca, { encoding: "utf-8" });
 
-  if (!fs.existsSync(certPath)) {
-    fs.writeFileSync(certPath, ca);
-  }
-
-  return certPath;
+  return CA_PATH;
 }
