@@ -46,13 +46,9 @@ export const getUrls = async (req: Request, res: Response) => {
 };
 
 
-export const redirectToUrl = async (req: Request, res: Response) => {
+export const redirectToUrl = async (req: Request<{ short: string }>, res: Response) => {
     try {
-        const short = req.params.short;
-
-        if (!short) {
-            return res.status(400).json({ error: "Short inválido" });
-        }
+        const { short } = req.params;
 
         const url = await prisma.urls.findFirst({
             where: { short },
@@ -68,3 +64,4 @@ export const redirectToUrl = async (req: Request, res: Response) => {
         return res.status(500).json({ error: "Erro interno do servidor" });
     }
 };
+
