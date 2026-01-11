@@ -3,11 +3,11 @@ import cors from 'cors';
 import urlRoutes from './urlRoutes.js';
 
 const app = express();
-  
+
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'x-api-key'],
 }));
 
 app.use(express.json());
