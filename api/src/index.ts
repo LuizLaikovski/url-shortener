@@ -5,10 +5,9 @@ import cors from 'cors';
 const app = express();
 const PORT = 3000;
 
-app.use(cors());
-app.options('*', cors());
-
+app.use(cors()); // 🔓 libera CORS para todas as origens
 app.use(express.json());
+
 app.use(urlRoutes);
 
 app.listen(PORT, () => {
