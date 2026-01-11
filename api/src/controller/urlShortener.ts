@@ -1,6 +1,7 @@
 import type { Request, Response } from "express"
 import { prisma } from "../lib/prisma";
 
+
 export const createUrlShort = async (req: Request, res: Response) => {
     try {
         const { url } = req.body;
@@ -46,24 +47,24 @@ export const getUrls = async (req: Request, res: Response) => {
 
 
 export const redirectToUrl = async (req: Request, res: Response) => {
-  try {
-    const short = req.params.short;
+    try {
+        const short = req.params.short;
 
-    if (!short) {
-      return res.status(400).json({ error: "Short inválido" });
+        if (!short) {
+            return res.status(400).json({ error: "Short inválido" });
+        }
+
+        const url = await prisma.urls.findFirst({
+            where: { short },
+        });
+
+        if (!url) {
+            return res.status(404).json({ error: "URL não encontrada" });
+        }
+
+        return res.redirect(url.original);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor" });
     }
-
-    const url = await prisma.urls.findFirst({
-      where: { short },
-    });
-
-    if (!url) {
-      return res.status(404).json({ error: "URL não encontrada" });
-    }
-
-    return res.redirect(url.original);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Erro interno do servidor" });
-  }
 };
